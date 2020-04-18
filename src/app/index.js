@@ -6,11 +6,21 @@ function App() {
   const [items, setItems] = useState(food.filter((item, index) => index <= 25));
 
   function onSearch(value) {
-    setItems(
-      [...food].filter(item => 
-        new RegExp(value).test(item.Display_Name)  
-      ).filter((item, index) => index <= 25)
-    )
+    if (value === '') {
+      alert('Type something before search');
+      return;
+    }
+
+    const items = [...food].filter(item => 
+      new RegExp(value).test(item.Display_Name)  
+    ).filter((item, index) => index <= 25);
+
+    if (items.length === 0) {
+      alert('Food not found')
+      return;
+    }
+
+    setItems(items)
   }
 
   function onClear() {
